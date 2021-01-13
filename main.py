@@ -11,9 +11,6 @@ LOGIN_URL = 'https://elearning.warwick.nsw.edu.au/login/index.php'
 # SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=16150'
 SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=11375'
 
-ATTENDANCE_MSG = '''Student name: Hernan Diaz
-Student Code: 3596'''
-
 driver = uc.Chrome()
 
 
@@ -54,7 +51,9 @@ def mark_attendance():
 	text_area = driver.find_element_by_css_selector('form div textarea#message-input')
 	btn_send = driver.find_element_by_css_selector('form div textarea#message-input + button')
 
-	text_area.send_keys(ATTENDANCE_MSG)
+	att_details = load_dict_file("__attendance_details.json")
+
+	text_area.send_keys(att_details.get("attendance_message"))
 	btn_send.click()
 
 
