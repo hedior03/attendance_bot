@@ -4,3 +4,7 @@ venv
 env
 
 *.py[cod]
+
+chromedriver
+
+__*
