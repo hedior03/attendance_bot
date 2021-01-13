@@ -5,6 +5,8 @@ env
 
 *.py[cod]
 
+.*.swp
+
 chromedriver
 
 __*
