@@ -1,6 +1,6 @@
 # Attendance Bot
 
-Selenium automating script intendet to simulate attendance on online clases chat.
+Selenium automating script intended to simulate attendance on online clases chat.
 
 ## features
 - [] Website login
