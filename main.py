@@ -5,10 +5,7 @@ import undetected_chromedriver as uc
 import json
 from os.path import exists
 
-
-ATT_DETAILS = load_dict_file("__attendance_details.json")
-
-driver = uc.Chrome()
+import job_manager
 
 
 def login():
@@ -78,14 +75,28 @@ def load_dict_file(filename):
         return reading_dict
 
 
-def test():
+def test_task_timing():
+	job_manager.setup_jobs([ATT_DETAILS.get('start')], fnc_args=['START'])
+	job_manager.setup_jobs(ATT_DETAILS.get('calls_time'))
+	job_manager.setup_jobs([ATT_DETAILS.get('finish')], fnc_args=['FINISH'])
+
+
+def main()
+	global driver
+	driver = uc.Chrome()
+
 	login()
 	getin_session()
 	mark_attendance()
 
-	# logout()
+	logout()
+
+
+
+ATT_DETAILS = load_dict_file("__attendance_details.json")
+
+driver = object()
 
 
 if __name__ == '__main__':
-	pass
-	test()
+	test_task_timing()
