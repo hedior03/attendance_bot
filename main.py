@@ -6,17 +6,14 @@ import json
 from os.path import exists
 
 
-LOGIN_URL = 'https://elearning.warwick.nsw.edu.au/login/index.php'
-
-# SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=16150'
-SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=11375'
+ATT_DETAILS = load_dict_file("__attendance_details.json")
 
 driver = uc.Chrome()
 
 
 def login():
 	driver.implicitly_wait(10)
-	driver.get(LOGIN_URL)
+	driver.get(ATT_DETAILS.get('login_url'))
 	
 	secrets = load_dict_file("__secrets.json")
 
@@ -30,7 +27,7 @@ def login():
 
 
 def getin_session():
-	driver.get(SESSION_URL)
+	driver.get(ATT_DETAILS.get('session_url'))
 	
 	btn_session = driver.find_element_by_id('join_button_input')
 	btn_session.click()
@@ -51,9 +48,7 @@ def mark_attendance():
 	text_area = driver.find_element_by_css_selector('form div textarea#message-input')
 	btn_send = driver.find_element_by_css_selector('form div textarea#message-input + button')
 
-	att_details = load_dict_file("__attendance_details.json")
-
-	text_area.send_keys(att_details.get("attendance_message"))
+	text_area.send_keys(ATT_DETAILS.get("attendance_message"))
 	btn_send.click()
 
 
