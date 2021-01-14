@@ -37,6 +37,10 @@ def getin_session():
 
 
 def mark_attendance():
+	post_message(ATT_DETAILS.get("attendance_message"))
+
+
+def post_message(msg):
 	# check if chat is displayed, otherwise open it
 	btn_public_chat = driver.find_element_by_css_selector('[class^=chatListItem]')
 	if not 'active' in btn_public_chat.get_attribute('class'):
@@ -45,17 +49,12 @@ def mark_attendance():
 	text_area = driver.find_element_by_css_selector('form div textarea#message-input')
 	btn_send = driver.find_element_by_css_selector('form div textarea#message-input + button')
 
-	text_area.send_keys(ATT_DETAILS.get("attendance_message"))
+	print(f'{job_manager.datetime.now()} >>> [post_message]\t{msg}')
+	text_area.send_keys(msg)
 	btn_send.click()
 
 
 def logout():
-	# btn_dropdown = driver.find_element_by_id("dropdown-1")
-	# btn_dropdown.click()
-
-	# btn_logout = driver.find_element_by_xpath('/html/body/nav/ul[2]/li[2]/div/div/div/div/div/a[7]')
-	# btn_logout.click()
-	
 	driver.quit()
 
 
@@ -81,15 +80,20 @@ def test_task_timing():
 	job_manager.setup_jobs([ATT_DETAILS.get('finish')], fnc_args=['FINISH'])
 
 
-def main()
+def schedule_task(time_list, fnc, fnc_args):
+	job_manager.setup_jobs(time_list, fnc=fnc, fnc_args=fnc_args)
+
+
+def main():
 	global driver
 	driver = uc.Chrome()
 
 	login()
 	getin_session()
-	mark_attendance()
 
-	logout()
+	schedule_task([ATT_DETAILS.get('start')], fnc=post_message, fnc_args=[ATT_DETAILS.get('start_message')])
+	schedule_task(ATT_DETAILS.get('calls_time'), fnc=mark_attendance, fnc_args=[])
+	schedule_task([ATT_DETAILS.get('finish')], fnc=post_message, fnc_args=[ATT_DETAILS.get('finish_message')])
 
 
 
@@ -97,6 +101,5 @@ ATT_DETAILS = load_dict_file("__attendance_details.json")
 
 driver = object()
 
-
 if __name__ == '__main__':
-	test_task_timing()
+	main()
