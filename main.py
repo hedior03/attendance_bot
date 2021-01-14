@@ -4,12 +4,13 @@
 import undetected_chromedriver as uc
 import json
 from os.path import exists
+import time
 
 
 LOGIN_URL = 'https://elearning.warwick.nsw.edu.au/login/index.php'
 
-# SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=16150'
-SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=11375'
+SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=16150'
+# SESSION_URL = 'https://elearning.warwick.nsw.edu.au/mod/bigbluebuttonbn/view.php?id=11375'
 
 driver = uc.Chrome()
 
@@ -67,6 +68,13 @@ def logout():
 	driver.quit()
 
 
+def schedule(n,delay):
+	for i in range(n):
+		time.sleep(delay)
+		print('event')
+		mark_attendance()
+
+
 def load_dict_file(filename):
         if exists(filename):
             with open(filename, "r", encoding="utf8") as exam_file:
@@ -86,7 +94,7 @@ def load_dict_file(filename):
 def test():
 	login()
 	getin_session()
-	mark_attendance()
+	# mark_attendance()
 
 	# logout()
 
