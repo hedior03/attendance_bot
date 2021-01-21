@@ -4,7 +4,7 @@ Selenium automating script intended to simulate attendance on online clases chat
 
 ## Setting up
 
-Based on `sample__secrets.json` and `sample__attendance_details.json` set up your login, session and schedule details for the task.
+Based on `sample__secrets.json` and `sample__attendance_details.json` set up your login, session and schedule details for the task. Remember removing `sample` word from the filename.
 
 ## features
 - [X] Website login
